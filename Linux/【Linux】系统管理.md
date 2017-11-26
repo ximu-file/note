@@ -61,14 +61,17 @@ uname -a
 ```
 
 # 7 . 获取Linux的系统磁盘使用情况(余量)
-`df -hl`
+`df -hl 目录 ` 
 
 # 8 . 查看文件的大小
 
  du命令用于显示目录或文件的大小。
 
 -h或--human-readable 以K，M，G为单位，提高信息的可读性。
+
 -s或--summarize 仅显示总计。
+
+--max-depth=1 指定深度是1
 
 # 9 . 解压文件
 
