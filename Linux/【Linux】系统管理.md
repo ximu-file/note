@@ -162,7 +162,66 @@ $whereis command
 
 $find ./ -name '*.obj'
 
-# 15.清理内存
+
+
+# 15.查询内存以及清理内存
+
+free 命令可以查看系统的内存使用情况：
+
+```
+root@aliyun:~# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           2.0G        175M        1.3G        2.8M        492M        1.6G
+Swap:            0B          0B          0B
+```
+
+Mem：表示物理内存统计
+
+Swap：表示硬盘上交换分区的使用情况，这里我们不去关心。
+
+系统的总物理内存：2G，但系统当前真正可用的内存并不是第一行free 标记的1.3G，它仅代表**未被分配**的内存。
+
+total：表示物理内存总量。
+used：**表示总计分配给缓存（包含buffers 与cache ）使用的数量，但其中可能部分缓存并未实际使用。**
+free：未被分配的内存。
+shared：共享内存，一般系统不会用到，这里也不讨论。
+buff/cache：系统分配但未被使用的buffers和cache的数量。buffer 与cache 的区别见后面。
+
+available：内存的可用值
+
+
+
+**对于buffer 与cache区别**
+
+**buffer：缓冲**
+
+将数据缓冲下来，解决速度慢和快的交接问题；速度快的需要通过缓冲区将数据一点一点传给速度慢的区域。例如：从内存中将数据往硬盘中写入，并不是直接写入，而是缓冲到一定大小之后刷入硬盘中。
+
+> A buffer is something that has yet to be "written" to disk.
+
+**cache：缓存**
+
+实现数据的重复使用，速度慢的设备需要通过缓存将经常要用到的数据缓存起来，缓存下来的数据可以提供高速的传输速度给速度快的设备。例如：将硬盘中的数据读取出来放在内存的缓存区中，这样以后再次访问同一个资源，速度会快很多。
+
+> A cache is something that has been "read" from the disk and stored for later use.
+
+**总结：**
+
+buffer是用于存放将要输出到disk（块设备）的数据，而cache是存放从disk上读出的数据。二者都是为提高IO性能而设计的。
+
+
+
+/proc是一个虚拟的文件系统，我们可以通过对它进行读写来达到与Kernel实体间进行通信的一种手段。
+
+有一个内核配置接口 `/proc/sys/vm/drop_caches` 可以允许用户手动的来清理cache来达到释放内存的作用，这个文件有三个值1，2，3
+
+|                变量                 |                 含义                  |
+| :-------------------------------: | :---------------------------------: |
+| echo 1 > /proc/sys/vm/drop_caches |           free page cache           |
+| echo 2 > /proc/sys/vm/drop_caches |      free dentries and inodes       |
+| echo 3 > /proc/sys/vm/drop_caches | free page cache、dentries and inodes |
+
+
 
 ```
 # 1.清理前内存使用情况 
@@ -173,11 +232,12 @@ echo 1 > /proc/sys/vm/drop_caches
 
 # 3.清理后内存使用情况 
 free -m
-
-# 4.完成!
 ```
 
+
+
 # 16.查看某个端口被哪个程序所占用
+
 ```
 sudo lsof -i :端口号
 ```

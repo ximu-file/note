@@ -1,5 +1,4 @@
 # 【MySQL】show variables
-#技术积累/mysql
 
 MySQL服务器维护着两种变量：
 （1）全局变量影响服务器的全局操作

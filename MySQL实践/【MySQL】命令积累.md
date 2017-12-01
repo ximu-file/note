@@ -1,41 +1,25 @@
-# 【mysql】-命令积累
-#技术积累/mysql
-
 # MySQL常用命令
+
+
+
+## 登录
+
 1. 登录本地终端：
-`mysql -uroot -pvstar123`
-
+  `mysql -uroot -pvstar123`
 2. 远程登录服务端MySQL
-`mysql -h localhost -uroot -pvstar123`
+  `mysql -h localhost -uroot -pvstar123`
 
-3. Linux下清理日志文件
+
+
+## 日志
+
+1. Linux下清理日志文件
 
 [mysql日志清理 - osxlinux - 博客园](http://www.cnblogs.com/osxlinux/p/3865721.html)
 
-4. 该命令可以查看到mysql所的进程状态，所以对show processlist 的状态进行理解和确认，也就显得非常必要了。
-`show processlist` 命令
-
-5. 显示表的相关信息
-
-`show table status like 'user'`
-
-6. 查询慢查询相关的变量内容
-`show variables like "%slow%";`
-
-```
-mysql> show variables like "%slow%";
-+---------------------+-----------------------------------+
-| Variable_name       | Value                             |
-+---------------------+-----------------------------------+
-| log_slow_queries    | OFF                               |
-| slow_launch_time    | 2                                 |
-| slow_query_log      | OFF                               |
-| slow_query_log_file | /var/lib/mysql/louyuting-slow.log |
-+---------------------+-----------------------------------+
-```
 
 
-7. 查看日志相关的配置变量
+查看日志相关的配置变量
 
 `show variables like '%log%'`
 
@@ -87,4 +71,39 @@ mysql> show variables like "%slow%";
 +-----------------------------------------+-----------------------------------+
 ```
 
+
+
+
+
+## 进程
+
+1. 该命令可以查看到mysql所的进程状态，所以对show processlist 的状态进行理解和确认，也就显得非常必要了。
+  `show processlist` 命令
+
+
+
+## 表相关信息
+
+1. 显示表的相关信息
+
+`show table status like 'user'`
+
+
+
+## 慢查询
+
+查询慢查询相关的变量内容
+`show variables like "%slow%";`
+
+```
+mysql> show variables like "%slow%";
++---------------------+-----------------------------------+
+| Variable_name       | Value                             |
++---------------------+-----------------------------------+
+| log_slow_queries    | OFF                               |
+| slow_launch_time    | 2                                 |
+| slow_query_log      | OFF                               |
+| slow_query_log_file | /var/lib/mysql/louyuting-slow.log |
++---------------------+-----------------------------------+
+```
 
